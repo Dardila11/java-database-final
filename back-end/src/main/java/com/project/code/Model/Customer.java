@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name = "Customers")
 public class Customer {
 
     @Id

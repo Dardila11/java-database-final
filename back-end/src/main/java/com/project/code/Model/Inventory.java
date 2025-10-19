@@ -37,7 +37,7 @@ public class Inventory {
 //    - Type: private Integer
 //    - This field will represent the current stock level of the product at the store.
 
-    private int stockLevel;
+    private Integer stockLevel;
 
 // 5. Add relationships:
 //    - **Product Relationship**: Use @ManyToOne to link this inventory entry to a product.
@@ -52,7 +52,7 @@ public class Inventory {
 // 7. Create a constructor:
 //    - Add a constructor that takes a Product, Store, and Integer stockLevel to initialize the Inventory object.
 
-    public Inventory(Product product, Store store, int stockLevel) {
+    public Inventory(Product product, Store store, Integer stockLevel) {
         this.product = product;
         this.store = store;
         this.stockLevel = stockLevel;
@@ -96,11 +96,11 @@ public class Inventory {
         this.store = store;
     }
 
-    public int getStockLevel() {
+    public Integer getStockLevel() {
         return stockLevel;
     }
 
-    public void setStockLevel(int stockLevel) {
+    public void setStockLevel(Integer stockLevel) {
         this.stockLevel = stockLevel;
     }
 }
