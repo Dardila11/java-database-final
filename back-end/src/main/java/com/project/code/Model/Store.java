@@ -3,6 +3,7 @@ package com.project.code.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
@@ -23,12 +24,14 @@ public class Store {
 //    - Type: private String
 //    - This field cannot be empty, use the @NotNull annotation to enforce this rule.
     @NotNull(message = "Name cannot be empty")
+    @NotBlank
     private String name;
 // 3. Add 'address' field:
 //    - Type: private String
 //    - This field cannot be empty, use the @NotNull and @NotBlank annotations to enforce this rule.
 
     @NotNull(message = "Address cannot be empty")
+    @NotBlank
     private String address;
 // 4. Add relationships:
 //    - **Inventory**: A store can have multiple inventory entries.
