@@ -1,31 +1,48 @@
 package com.project.code.Model;
 
+import jakarta.annotation.Nullable;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "reviews")
 public class Review {
+
+    @Id
+    private String id;
 
 // 1. Add 'customerId' field:
 //    - Type: private Long
 //    - This field represents the customer who created the review.
 //    - This field cannot be empty, use the @NotNull annotation to enforce this rule.
+    @NotNull(message = "customerId cannot be empty")
+    private Long customerId;
 
 // 2. Add 'productId' field:
 //    - Type: private Long
 //    - This field represents the product being reviewed.
 //    - This field cannot be empty, use the @NotNull annotation to enforce this rule.
+    @NotNull(message = "productId cannot be empty")
+    private Long productId;
 
 // 3. Add 'storeId' field:
 //    - Type: private Long
 //    - This field represents the store associated with the product.
 //    - This field cannot be empty, use the @NotNull annotation to enforce this rule.
+    @NotNull(message = "storeId cannot be empty")
+    private Long storeId;
 
 // 4. Add 'rating' field:
 //    - Type: private Integer
 //    - This field represents the rating given to the product (out of 5).
 //    - This field cannot be empty, use the @NotNull annotation to enforce this rule.
-
+    @NotNull(message = "rating cannot be empty")
+    private Integer rating;
 // 5. Add 'comment' field:
 //    - Type: private String
 //    - This field represents an optional comment on the product.
 
+    private String comment;
 // 6. Add validation:
 //    - Apply @NotNull to the customerId, productId, storeId, and rating fields to ensure they are not null.
 //    - Example: @NotNull(message = "Customer cannot be null")
@@ -35,6 +52,14 @@ public class Review {
 
 // 8. Add constructor:
 //    - The constructor should accept values for customerId, productId, storeId, rating, and an optional comment.
+
+    public Review(Long customerId, Long productId, Long storeId, Integer rating, @Nullable String comment) {
+        this.customerId = customerId;
+        this.productId = productId;
+        this.storeId = storeId;
+        this.rating = rating;
+        this.comment = comment;
+    }
 
 // 9. Add @Id annotation:
 //    - Use @Id to mark the field 'id' as the primary key for MongoDB.
