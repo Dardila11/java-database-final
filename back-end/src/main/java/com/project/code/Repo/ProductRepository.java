@@ -1,7 +1,14 @@
 package com.project.code.Repo;
 
 
-public interface ProductRepository {
+import com.project.code.Model.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface ProductRepository extends JpaRepository<Product, Long> {
 // 1. Add the repository interface:
 //    - Extend JpaRepository<Product, Long> to inherit basic CRUD functionality.
 //    - This allows the repository to perform operations like save, delete, update, and find without having to implement these methods manually.
@@ -48,6 +55,26 @@ public interface ProductRepository {
 //      - Return type: List<Product>
 //      - Parameters: Long storeId, String pname
 //      - Use @Query annotation to write a custom query.
+    List<Product> findByCategory(String category);
+
+    List<Product> findByPriceBetween(Double minPrice, Double maxPrice);
+
+    List<Product> findBySku(String sku);
+
+    Product findByName(String name);
+
+    Optional<Product> findById(Long id);
+
+    ///  Find products by a name pattern for a specific store
+    @Query("SELECT i.product FROM Inventory i where i.store.id = :storeId AND i.product.name LIKE :productName")
+    List<Product> findByNameLike(Long storeId, String productName);
+
+    @Query("SELECT i.product FROM Inventory i WHERE i.store.id = :storeID AND " +
+            "LOWER(i.product.name) LIKE LOWER(CONCAT('%', :productName, '%')) AND " +
+            "i.product.category = :category ")
+    List<Product> findByNameAndCategory(Long storeId, String productName, String category);
+
+    List<Product> findByCategoryAndStoreId(Long storeId, String category);
 
 
 }

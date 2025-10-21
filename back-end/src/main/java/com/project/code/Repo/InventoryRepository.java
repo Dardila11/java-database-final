@@ -1,7 +1,18 @@
 package com.project.code.Repo;
 
 
-public interface InventoryRepository {
+import com.project.code.Model.Inventory;
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 // 1. Add the repository interface:
 //    - Extend JpaRepository<Inventory, Long> to inherit basic CRUD functionality.
 //    - This allows the repository to perform operations like save, delete, update, and find without having to implement these methods manually.
@@ -28,6 +39,16 @@ public interface InventoryRepository {
 //      - Return type: void
 //      - Parameter: Long productId
 //      - Use @Modifying and @Transactional annotations to ensure the database is modified correctly.
+    @Query("SELECT i FROM Inventory i WHERE i.product.id = :productId AND i.store.id = :storeId")
+    Optional<Inventory> findByProductIdAndStoreId(Long productId, Long storeId);
+
+    List<Inventory> findByStoreId(Long storeId);
+
+    @Modifying
+    @Transactional
+    void deleteByProductId(Long productId);
+
+
 
 
 
